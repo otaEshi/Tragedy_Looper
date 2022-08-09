@@ -403,7 +403,7 @@ public class NewGame extends JPanel {
 
         //set bounds
         endTurnBtn.setBounds(menu.frameSize.width / 8 * 5, 0, menu.frameSize.width / 10, menu.frameSize.height / 10);
-        startTurnBtn.setBounds(menu.frameSize.width / 8 * 3, 0, menu.frameSize.width / 7, menu.frameSize.height / 10);
+        startTurnBtn.setBounds(menu.frameSize.width / 8 * 3, 0, menu.frameSize.width / 6, menu.frameSize.height / 10);
         nextBtn.setBounds(menu.frameSize.width / 8 * 4, 0, menu.frameSize.width / 10, menu.frameSize.height / 10);
         Action startTurnAction = new AbstractAction() {
             @Override
@@ -574,6 +574,7 @@ public class NewGame extends JPanel {
         Action endTurnAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mastermindHiddenRoleSkillInforLabel.setVisible(false);
                 // transfer dead person to archive
                 if (isSomeoneDie == true) {
                     for (int i = 0; i < scenario.GetCharacterList().size(); i++) {
@@ -783,7 +784,7 @@ public class NewGame extends JPanel {
         inforLabel.setVisible(false);
         characterInforPanel = new JPanel();
         this.add(characterInforPanel);
-        characterInforPanel.setBounds(menu.frameSize.width / 5 * 4, backgroundSize.height, backgroundSize.width / 5, backgroundSize.height / 10);
+        characterInforPanel.setBounds(menu.frameSize.width / 5 * 4, backgroundSize.height, backgroundSize.width/2 , backgroundSize.height/2 );
         characterInforPanel.setLayout(new BoxLayout(characterInforPanel, BoxLayout.Y_AXIS));
         goodwillInforLabel = new JLabel();
         paraInforLabel = new JLabel();
@@ -875,18 +876,24 @@ public class NewGame extends JPanel {
         mastermindAbilitiesPanel.setLayout(null);
         mastermindAbilitiesPanel.setBounds(menu.frameSize.width / 2 - characterSkillPanelWidth / 2, menu.frameSize.height / 2 - characterSkillPanelHeight / 2, characterSkillPanelWidth, characterSkillPanelHeight);
         mastermindYesBtn = new JButton("Yes");
-        mastermindYesBtn.setBounds(characterSkillPanelWidth / 6 + characterSkillPanelWidth / 30, characterSkillPanelHeight / 2, characterSkillPanelWidth / 4, characterSkillPanelHeight / 4);
+        mastermindYesBtn.setBounds(characterSkillPanelWidth / 6 + characterSkillPanelWidth / 30, characterSkillPanelHeight / 2, characterSkillPanelWidth / 3, characterSkillPanelHeight / 4);
         mastermindYesBtn.addActionListener(mastermindYesBtnAction);
         mastermindNoBtn = new JButton("No");
         mastermindNoBtn.setBounds(characterSkillPanelWidth / 2 + characterSkillPanelWidth / 30, characterSkillPanelHeight / 2, characterSkillPanelWidth / 4, characterSkillPanelHeight / 4);
         mastermindNoBtn.addActionListener(mastermindNoBtnAction);
         mastermindHiddenRoleLabel = new JLabel();
-        mastermindHiddenRoleLabel.setBounds(characterSkillPanelWidth / 3, characterSkillPanelHeight / 4, characterSkillPanelWidth / 2, characterSkillPanelHeight / 4);
+        mastermindHiddenRoleLabel.setBounds(characterSkillPanelWidth/3 , characterSkillPanelHeight / 4, characterSkillPanelWidth , characterSkillPanelHeight / 4);
         mastermindHiddenRoleLabel.setText("Do you want to use Brain's skill?");
         mastermindAbilitiesPanel.add(mastermindYesBtn);
         mastermindAbilitiesPanel.add(mastermindNoBtn);
         mastermindAbilitiesPanel.add(mastermindHiddenRoleLabel);
         mastermindAbilitiesPanel.setVisible(false);
+        mastermindYesBtn.setOpaque(false);
+        mastermindYesBtn.setContentAreaFilled(false);
+        mastermindYesBtn.setBorderPainted(false);
+        mastermindNoBtn.setOpaque(false);
+        mastermindNoBtn.setContentAreaFilled(false);
+        mastermindNoBtn.setBorderPainted(false);
 
         mastermindHiddenRoleSkillInforLabel = new JLabel();
         mastermindHiddenRoleSkillInforLabel.setBounds(menu.frameSize.width / 2 - characterSkillPanelWidth / 2, menu.frameSize.height / 2 - characterSkillPanelHeight / 2, menu.frameSize.width, characterSkillPanelHeight);
