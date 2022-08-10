@@ -882,7 +882,7 @@ public class NewGame extends JPanel {
         mastermindNoBtn.setBounds(characterSkillPanelWidth / 2 + characterSkillPanelWidth / 30, characterSkillPanelHeight / 2, characterSkillPanelWidth / 4, characterSkillPanelHeight / 4);
         mastermindNoBtn.addActionListener(mastermindNoBtnAction);
         mastermindHiddenRoleLabel = new JLabel();
-        mastermindHiddenRoleLabel.setBounds(characterSkillPanelWidth/3 , characterSkillPanelHeight / 4, characterSkillPanelWidth , characterSkillPanelHeight / 4);
+        mastermindHiddenRoleLabel.setBounds(characterSkillPanelWidth/3 - characterSkillPanelWidth/50 , characterSkillPanelHeight / 4, characterSkillPanelWidth , characterSkillPanelHeight / 4);
         mastermindHiddenRoleLabel.setText("Do you want to use Brain's skill?");
         mastermindAbilitiesPanel.add(mastermindYesBtn);
         mastermindAbilitiesPanel.add(mastermindNoBtn);
@@ -1408,7 +1408,7 @@ public class NewGame extends JPanel {
             System.out.println("school " + GetPeopleIn(4));
             for (int i = 0; i < scenario.GetCharacterList().size(); i++) {
                 if (scenario.GetCharacterList().get(i).GetRole().equals("Serial Killer") && GetPeopleIn(scenario.GetCharacterList().get(i).GetCurrentPos()) == 2) {
-                    for (int j = 0; i < scenario.GetCharacterList().size(); j++) {
+                    for (int j = 0; j < scenario.GetCharacterList().size(); j++) {
                         if (!scenario.GetCharacterList().get(j).GetRole().equals("Serial Killer") && scenario.GetCharacterList().get(j).GetCurrentPos() == scenario.GetCharacterList().get(i).GetCurrentPos()) {
                             scenario.GetCharacterList().get(j).KillCharacter();
                             break;

@@ -1,6 +1,6 @@
 package JsonHandler;
 
-public class CharacterWithRole {
+public class CharacterWithRole {    //use in createScenario to create scenario (characters, characters with hidden role,...)
     private final String role;
     private final String name;
     private final String incident;
