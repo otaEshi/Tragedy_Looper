@@ -16,6 +16,10 @@ import java.util.Scanner;
 public class PlayerCardFactory {
     private ArrayList<PlayerCard> playerCardList;
 
+    public PlayerCardFactory(int language) {
+    }
+
+
     public boolean StringToBoolean(String string) throws Exception {
         if (string.equalsIgnoreCase("true")){
             return true;
