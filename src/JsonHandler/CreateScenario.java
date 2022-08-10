@@ -29,6 +29,7 @@ public class CreateScenario {
         } else if (language == 0){
             characterCardFactory.CreateFromJSONFile("cardsEN.txt");
         }
+        // use given scenario to create game with chosen character + hidden role + incident
         for (int i=0;i<cardNameList.GetCardNameList().size();i++){
             for (int j=0;j<characterCardFactory.GetCharacterCardList().size();j++){
                 if (cardNameList.GetCardNameList().get(i).GetName().equals(characterCardFactory.GetCharacterCardList().get(j).GetCardName()) ){
@@ -41,7 +42,7 @@ public class CreateScenario {
     }
 
     //Write JSON
-    public void WriteScenarioToJSONFile(CardNameList cardNameList){
+    public void WriteScenarioToJSONFile(CardNameList cardNameList){ // uses to create scenario pool
         JSONArray jsonArray = new JSONArray();
         for (int i=0;i<cardNameList.GetCardNameList().size();i++){
             JSONObject jsonObject = this.ConvertToJSON(cardNameList.GetCardNameList().get(i));
@@ -51,11 +52,11 @@ public class CreateScenario {
     }
 
     public JSONObject ConvertToJSON(CharacterWithRole characterWithRole){
-        JSONObject JSONName = new JSONObject();
-        JSONName.put("CardName",characterWithRole.GetName());
-        JSONName.put("Role",characterWithRole.GetRole());
-        JSONName.put("Incident",characterWithRole.GetIncident());
-        return JSONName;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("CardName",characterWithRole.GetName());
+        jsonObject.put("Role",characterWithRole.GetRole());
+        jsonObject.put("Incident",characterWithRole.GetIncident());
+        return jsonObject;
     }
 
     public void WriteToJSONFile(JSONArray jsonArray, String fileName){
@@ -68,6 +69,7 @@ public class CreateScenario {
         }
     }
 
+    // create cardNameList
     public CardNameList CreateFromJSONFile(){
         try {
             File myObj = new File(scenarioName);

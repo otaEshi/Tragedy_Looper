@@ -20,7 +20,7 @@ public class Option extends JInternalFrame {
     Menu menu;
 
     public Option(Menu menu) {
-        Image image = new ImageIcon("res\\settingBG.png").getImage();                                                //option Background
+        Image image = new ImageIcon("res\\settingBG.png").getImage();                                   //option Background
         this.menu = menu;
         optionFrameSize = menu.frameSize;
         optionPanel = new PaintBackGround(image, optionFrameSize);
@@ -123,6 +123,7 @@ public class Option extends JInternalFrame {
             }
         };
 
+        //add ActionListener
         cancelBtn.addActionListener(cancelAction);
         applyBtn.addActionListener(applyAction);
 
@@ -132,6 +133,7 @@ public class Option extends JInternalFrame {
         applyBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "apply");
         applyBtn.getActionMap().put("apply", applyAction);
 
+        //Add components to optionPanel
         optionPanel.add(languageBox);
         optionPanel.add(cancelBtn);
         optionPanel.add(applyBtn);

@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class CharacterCardFactory {
     private ArrayList<CharacterCard> characterCardList;
 
-    public void JSONImportHandler(ArrayList<CharacterCard> characterCardList){
+    public void JSONImportHandler(ArrayList<CharacterCard> characterCardList){ // uses to crate character pool
         JSONArray jsonArray = new JSONArray();
         for (int i=0;i<characterCardList.size();i++){
             JSONObject jsonObject = this.ConvertToJSON(characterCardList.get(i));
@@ -38,6 +38,7 @@ public class CharacterCardFactory {
         return JSONCard;
     }
 
+    // Write JSON file
     public void WriteToJSONFile(JSONArray jsonArray, String fileName){
         try {
             FileWriter out = new FileWriter(fileName);
@@ -48,12 +49,7 @@ public class CharacterCardFactory {
         }
     }
 
-    /**
-     * Create a Character card from JSONFile, given the URL
-     * <p>
-     *     The JSON File must contain JSONArray of JSONObjects
-     * </p>
-     */
+    // create a list of character cards
     public ArrayList<CharacterCard> CreateFromJSONFile(String fileName){
         try {
             File myObj = new File(fileName);
@@ -64,22 +60,20 @@ public class CharacterCardFactory {
                 data = myReader.nextLine();
             }
             myReader.close();
-
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(data);
             JSONArray array = (JSONArray)obj;
             characterCardList = new ArrayList<CharacterCard>();
             for (int i=0;i< array.size();i++) {
-                JSONObject jsonCard = (JSONObject) array.get(i);
-
-                CharacterCard card = new CharacterCard(jsonCard.get("cardName").toString(),
+                JSONObject jsonCard = (JSONObject) array.get(i);                            // create a temp object to init character list
+                CharacterCard card = new CharacterCard(jsonCard.get("cardName").toString(), // init charactercard
                         Integer.valueOf(jsonCard.get("startingPos").toString()),
                         Integer.valueOf(jsonCard.get("forbidPos").toString()),
                         Integer.valueOf(jsonCard.get("goodwillThreshold1").toString()),
                         Integer.valueOf(jsonCard.get("goodwillThreshold2").toString()),
                         Integer.valueOf(jsonCard.get("paranoiaThreshold").toString()),
                         jsonCard.get("imageURL").toString());
-                characterCardList.add(card);
+                characterCardList.add(card);                                                // add cards to list
             }
             return characterCardList;
         } catch (FileNotFoundException e) {

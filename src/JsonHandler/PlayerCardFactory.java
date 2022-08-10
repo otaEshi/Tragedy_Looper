@@ -16,9 +16,6 @@ import java.util.Scanner;
 public class PlayerCardFactory {
     private ArrayList<PlayerCard> playerCardList;
 
-    public PlayerCardFactory(int language){
-    }
-
     public boolean StringToBoolean(String string) throws Exception {
         if (string.equalsIgnoreCase("true")){
             return true;
@@ -27,7 +24,7 @@ public class PlayerCardFactory {
         } else throw new Exception("not true or false");
     }
 
-    public void JSONImportHandler(ArrayList<PlayerCard> playerCardList) {
+    public void JSONImportHandler(ArrayList<PlayerCard> playerCardList) {   // uses to create player card pool
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < playerCardList.size(); i++) {
             JSONObject jsonObject = this.ConvertToJSON(playerCardList.get(i));
@@ -54,13 +51,6 @@ public class PlayerCardFactory {
         }
     }
 
-    /**
-     * Create a Character card from JSONFile, given the URL
-     * <p>
-     * The JSON File must contain JSONArray of JSONObjects
-     * </p>
-     * @return
-     */
     public ArrayList<PlayerCard> CreateFromJSONFile(String fileName) {
         try {
             File myObj = new File(fileName);

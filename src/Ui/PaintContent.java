@@ -3,7 +3,7 @@ package Ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class PaintContent extends  JPanel{
+public class PaintContent extends  JPanel{ //drawing info, city, shrine, hospital, school panel
     private Image image;
     private final Dimension size;
 

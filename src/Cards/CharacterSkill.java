@@ -106,7 +106,6 @@ public class CharacterSkill {
         if(policeSkill2used==false){
             if (characterCardTarget.GetAlive()!=0){
                 characterCardTarget.AddShield();
-                System.out.println("check police skill 2 working??");
             }
             policeSkill2used=true;
         }
@@ -141,7 +140,6 @@ public class CharacterSkill {
                     PoliceSkill1();
                     newGame.SetPoliceSkill1Used(true);
                     newGame.SetPoliceSkill1Used(true);
-                    System.out.println("check 2");
                 }
             } else if (newGame.GetCurrentSkill()==2){
                 this.SetPoliceSkill2Used(newGame.GetPoliceSkill2Used());

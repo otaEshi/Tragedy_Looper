@@ -43,7 +43,7 @@ public class Menu extends JFrame implements ActionListener{
         currentDisplayIndex = config.GetDisplayIndex();
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Image image = new ImageIcon("res/tragedy_commons_5th/logo/logo.png").getImage();
+        Image image = new ImageIcon("res/tragedy_commons_5th/logo/logo.png").getImage();    //main menu background imgage
 
         //set resolution
         frame = new JFrame();
@@ -164,9 +164,9 @@ public class Menu extends JFrame implements ActionListener{
         loadGameBtn.setFont(new Font("Algerian", Font.PLAIN, frameSize.width / 45));
         loadGameBtn.setEnabled(false);
 
-        // put japanese here to change in game language
+        // put japanese here to change in game language - IDEA doesn't support japanese font
         if (currentLanguageIndex == 1) {
-            newGameBtn.setText("START");
+            newGameBtn.setText("New Game");
             editorBtn.setText("EDITOR");
             optionsBtn.setText("SETTING");
             exitBtn.setText("EXIT");
@@ -255,7 +255,7 @@ public class Menu extends JFrame implements ActionListener{
             }
         };
 
-        // Di chuyyen con tro trong menu
+        // Di chuyen con tro trong menu
         Action adjustMenuPointerUp = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -514,11 +514,9 @@ public class Menu extends JFrame implements ActionListener{
                 if (menuState == 1){
                     if(exitPanelCommandNum == 0){
                         noBtn.doClick();
-                        System.out.println(exitPanelCommandNum);
                     }
                     if(exitPanelCommandNum == 1) {
                         yesBtn.doClick();
-                        System.out.println(exitPanelCommandNum);
                     }
                 }
                 if(menuState == 0){
@@ -547,14 +545,14 @@ public class Menu extends JFrame implements ActionListener{
         newGameBtn.addActionListener(newGameAction);
         loadGameBtn.addActionListener(loadAction);
         editorBtn.addActionListener(editorAction);
-        editorBtn.setEnabled(false); //chuc nang chua su dung
+        editorBtn.setEnabled(false);                    //chuc nang chua su dung
         optionsBtn.addActionListener(optionsAction);
         exitBtn.addActionListener(exitAction);
 
         container.setLayout(new BoxLayout(container,BoxLayout.X_AXIS));
         container.setBorder(BorderFactory.createEmptyBorder(0,frameSize.width/6,frameSize.height/15,0));
 
-        //add component to container
+        //add component to container and create rigid area (tạo khoảng trống)
         container.add(newGamePointer);
         container.add(Box.createRigidArea(new Dimension(5, 0)));
         container.add(newGameBtn);
@@ -608,7 +606,7 @@ public class Menu extends JFrame implements ActionListener{
         noBtn.setContentAreaFilled(false);
         noBtn.setBorderPainted(false);
 
-        // add container to frame and adjust things
+        // add container to frame and adjust things - can't see title because we use full screen and borderless window only
         frame.add(containerRoot);
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);

@@ -19,7 +19,6 @@ import java.io.IOException;
 
 public class NewGame extends JPanel {
     Menu menu;
-    // JPanel BG;
     PaintContent cityBG;
     PaintContent schoolBG;
     PaintContent hospitalBG;
@@ -33,8 +32,6 @@ public class NewGame extends JPanel {
     JLabel goodwillInforLabel;
     JLabel paraInforLabel;
     JLabel intrigueInforLabel;
-    Image cardImage;
-    JLabel informer;
     JPanel protagonistHandPanel;
     JPanel mastermindHandPanel;
     int day = 1;
@@ -43,7 +40,6 @@ public class NewGame extends JPanel {
     int language;
     NewGame currentNewGame;
     int checkKeyPersonState = 1;
-
     int cardPlayedCount = 0;
     Boolean isMastermind = false;
     Boolean playerCardClicked = false;
@@ -286,7 +282,6 @@ public class NewGame extends JPanel {
                         }
                         playerCardFactory.GetPlayerCardList().get(finalI).GetPlayerCardLabel().setIcon(new ImageIcon(tempImg));
                     } else if (playerCardFactory.GetPlayerCardList().get(finalI).GetPlayerCardClicked() == true && playerCardClicked == true) {
-//                        System.out.println("turn off");
                         playerCardFactory.GetPlayerCardList().get(finalI).SetPlayerCardClicked(false);
                         playerCardClicked = false;
                         playerCardFactory.GetPlayerCardList().get(finalI).GetPlayerCardLabel().setIcon(new ImageIcon(playerCardImg));
@@ -326,7 +321,6 @@ public class NewGame extends JPanel {
                     inforLabel.setIcon(new ImageIcon(inforImg));
                     inforLabel.setVisible(true);
                 }
-
                 @Override
                 public void mouseExited(MouseEvent e) {
                     super.mouseExited(e);
@@ -339,7 +333,6 @@ public class NewGame extends JPanel {
                     inforLabel.setIcon(new ImageIcon(inforImg));
                     inforLabel.setVisible(false);
                 }
-
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     super.mouseClicked(e);
@@ -432,6 +425,7 @@ public class NewGame extends JPanel {
             }
         };
 
+        // next phase action
         Action nextAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -445,7 +439,7 @@ public class NewGame extends JPanel {
                         archiveToggleBtn.setEnabled(true);
                     }
                 }
-                if (isSomeoneDie == true) {
+                if (isSomeoneDie == true) {     // if someone is dead, send that person to archive
                     for (int i = 0; i < scenario.GetCharacterList().size(); i++) {
                         if (scenario.GetCharacterList().get(i).GetAlive() == 0) {
                             switch (scenario.GetCharacterList().get(i).GetThisRoundPos()) {
@@ -476,7 +470,7 @@ public class NewGame extends JPanel {
                 phaseCount += 1;
                 currentNewGame.Next(playerCardFactory);
 
-                if (phaseCount == 2 && isPhase1 == false) {
+                if (phaseCount == 2 && isPhase1 == false) { //phase 2 - hidden role abilities
                     isPhase1 = true;
                     phaseCount = 1;
                     if (!brainIsAlive) {
@@ -497,7 +491,7 @@ public class NewGame extends JPanel {
                     isPhase1 = false;
                 }
 
-                if (phaseCount == 3) {
+                if (phaseCount == 3) {  // resolve phase 3 - hidden role/incident
                     if (day == 2) {
                         for (int i = 0; i < scenario.GetCharacterList().size(); i++) {
                             if (scenario.GetCharacterList().get(i).GetIncident().equals("Murder")) {
@@ -511,7 +505,6 @@ public class NewGame extends JPanel {
                                     if (scenario.GetCharacterList().get(i).GetCurrentPos() == characterCardPerform.GetCurrentPos() && !scenario.GetCharacterList().get(i).GetCardName().equals(characterCardPerform.GetCardName())) {
                                         scenario.GetCharacterList().get(i).KillCharacter();
                                         JOptionPane.showMessageDialog(menu, scenario.GetCharacterList().get(i).GetCardName() + " is murdered!!!");
-                                        System.out.println(scenario.GetCharacterList().get(i).GetAlive());
                                         isMurderHappen = true;
                                         break;
                                     }
@@ -660,7 +653,6 @@ public class NewGame extends JPanel {
                         characterSkillPanel.setVisible(false);
                     } else if (currentCharacter.GetCardName().equals("Police")) {
                         characterSkill = new CharacterSkill(currentCharacter, characterCardTarget, currentNewGame, currentSKill);
-                        System.out.println("check 1");
                         currentSKill = 1;
                         characterSkill.ActiveGoodwillSkill();
                         characterSkillPanel.setVisible(false);
@@ -1166,14 +1158,11 @@ public class NewGame extends JPanel {
                                 skillActivated = false;
                             }
                         }
-
-                        System.out.println(GetPeopleIn(currentCharacter.GetCurrentPos()));
                     } else if (phaseCount == 3) { // incident
                         currentCharacter = scenario.GetCharacterList().get(finalI);
                         if (isMurderHappen == false && skillActivated == true) {
                             if (!currentCharacter.GetCardName().equals(characterCardPerform.GetCardName()) && currentCharacter.GetCurrentPos() == characterCardPerform.GetCurrentPos()) {
                                 currentCharacter.KillCharacter();
-                                System.out.println(currentCharacter.GetAlive());
                                 JOptionPane.showMessageDialog(menu, currentCharacter.GetCardName() + " is murdered!!!");
                                 skillActivated = false;
                                 isMurderHappen = true;
@@ -1332,29 +1321,23 @@ public class NewGame extends JPanel {
 
             // Xử lí di chuyển
             for (int i = 0; i < scenario.GetCharacterList().size(); i++) {
-//            System.out.println(scenario.GetCharacterList().get(i).GetCardName()+" "+scenario.GetCharacterList().get(i).GetCurrentPos());
                 if (scenario.GetCharacterList().get(i).GetIsMoving() == true) {
                     if (scenario.GetCharacterList().get(i).GetForbidMovement() == false) {
-//                    switch (scenario.GetCharacterList().get(i).GetTempPos()) {
                         switch (scenario.GetCharacterList().get(i).GetThisRoundPos()) {
                             case 1:
                                 hospitalBG.remove(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("hospital-1");
                                 peopleInHospital -= 1;
                                 break;
                             case 2:
                                 shrineBG.remove(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("Shrine-1");
                                 peopleInShrine -= 1;
                                 break;
                             case 3:
                                 cityBG.remove(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("city-1");
                                 peopleInCity -= 1;
                                 break;
                             case 4:
                                 schoolBG.remove(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("school-1");
                                 peopleInSchool -= 1;
                                 break;
                         }
@@ -1364,22 +1347,18 @@ public class NewGame extends JPanel {
                         switch (scenario.GetCharacterList().get(i).GetCurrentPos()) {
                             case 1:
                                 hospitalBG.add(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("hospital+1");
                                 peopleInHospital += 1;
                                 break;
                             case 2:
                                 shrineBG.add(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("shrine+1");
                                 peopleInShrine += 1;
                                 break;
                             case 3:
                                 cityBG.add(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("city+1");
                                 peopleInCity += 1;
                                 break;
                             case 4:
                                 schoolBG.add(scenario.GetCharacterList().get(i).GetCharacterLabel());
-                                System.out.println("school+1");
                                 peopleInSchool += 1;
                                 break;
                         }
@@ -1401,11 +1380,6 @@ public class NewGame extends JPanel {
 
         // Xử lí phase 4 (day-end)
         if (phaseCount == 4) {
-            System.out.println("phaseCount + anyhthing to check");
-            System.out.println("hospital " + GetPeopleIn(1));
-            System.out.println("shrine" + GetPeopleIn(2));
-            System.out.println("city " + GetPeopleIn(3));
-            System.out.println("school " + GetPeopleIn(4));
             for (int i = 0; i < scenario.GetCharacterList().size(); i++) {
                 if (scenario.GetCharacterList().get(i).GetRole().equals("Serial Killer") && GetPeopleIn(scenario.GetCharacterList().get(i).GetCurrentPos()) == 2) {
                     for (int j = 0; j < scenario.GetCharacterList().size(); j++) {
@@ -1437,17 +1411,17 @@ public class NewGame extends JPanel {
         for (int i = 0; i < scenario.GetCharacterList().size(); i++) {
             if (scenario.GetCharacterList().get(i).GetRole().equals("Key Person")) {
                 checkKeyPersonState = scenario.GetCharacterList().get(i).GetAlive();
-                System.out.println("current alive?: " + scenario.GetCharacterList().get(i).GetAlive());
-                System.out.println("gan alive: " + checkKeyPersonState);
                 break;
             }
         }
+        // protagonist win
         if (day == 4 && checkKeyPersonState != 0) {
             gameResultLabel.setText("Protagonist Win");
             gameResultPanel.setVisible(true);
         }
 
         if (day < 4 && checkKeyPersonState != 0) {
+            // resolve end day
             day += 1;
             for (int i = 0; i < playerCardFactory.GetPlayerCardList().size(); i++) {
                 playerCardFactory.GetPlayerCardList().get(i).ResetDay();
@@ -1460,9 +1434,9 @@ public class NewGame extends JPanel {
             }
         } else if (day == 4 || checkKeyPersonState == 0) {
             if (loop > 1) {
+                // resolve end loop
                 day = 1;
                 loop -= 1;
-
                 brainIsAlive = true;
                 conspiracyTheoristIsAlive = true;
                 isBrain = true;
@@ -1479,13 +1453,13 @@ public class NewGame extends JPanel {
                 peopleInShrine = 1;
                 peopleInHospital = 1;
 
-                //reset playercard
+                //reset player card
                 for (int i = 0; i < playerCardFactory.GetPlayerCardList().size(); i++) {
                     playerCardFactory.GetPlayerCardList().get(i).ResetLoop();
                     playerCardClicked = false;
                 }
 
-                //add playercard to hand
+                //add player card to hand
                 for (int i = 0; i < playerCardFactory.GetPlayerCardList().size(); i++) {
                     contentPanel.remove(playerCardFactory.GetPlayerCardList().get(i).GetPlayerCardLabel());
                     protagonistHandPanel.remove(playerCardFactory.GetPlayerCardList().get(i).GetPlayerCardLabel());
@@ -1543,11 +1517,15 @@ public class NewGame extends JPanel {
                     }
                 }
 
-            } else if (loop == 1 && checkKeyPersonState == 0) { //final guess
+                // Mastermind Win
+            } else if (loop == 1 && checkKeyPersonState == 0) {
+                // resolve end game
                 gameResultLabel.setText("Mastermind Win");
                 gameResultPanel.setVisible(true);
             }
         }
+
+        // Day/turn images
         if (language == 1) {
             if (this.day == 4) {
                 if (this.loop == 4) {

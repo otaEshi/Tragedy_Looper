@@ -2,7 +2,7 @@ package Ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class PaintBackGround extends JPanel {
+public class PaintBackGround extends JPanel {   //drawing background of menu and setting
     private final Image image;
     private final Dimension frameSize;
     public PaintBackGround(Image image, Dimension frameSize) {
